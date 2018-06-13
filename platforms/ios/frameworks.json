@@ -1,0 +1,10 @@
+{
+    "Security.framework": 1,
+    "SystemConfiguration.framework": 2,
+    "AudioToolbox.framework": 1,
+    "StoreKit.framework": 1,
+    "MessageUI.framework": 2,
+    "WebKit.framework": 1,
+    "libz.tbd": 1,
+    "Social.framework": 1
+}

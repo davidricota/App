@@ -1,6 +1,6 @@
 {
   "name": "WooCommerce",
-  "app_id": "",
+  "app_id": "a36ba972",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
