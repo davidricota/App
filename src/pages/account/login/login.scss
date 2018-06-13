@@ -1,0 +1,196 @@
+.account-login:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+}
+.account-login {
+    background-image: url("../assets/image/login.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    .list {
+        margin: 0 0 16px 0;
+    }
+    .item {
+        padding: 0px;
+    }
+    .shop-info {
+        margin: 60px 60px 40px 60px;
+        h1 {
+            text-align: center;
+            color: #fff;
+            font-size: 25px;
+        }
+        h2 {
+            padding-top: 30px;
+            text-align: center;
+            color: #fff;
+            font-size: 16px;
+        }
+    }
+    .login-div {
+        text-align: center;
+        margin: 50px 30px 0 30px;
+        .button {
+            min-height: 50px;
+            color: #fff;
+            border: 2px solid rgba(255, 255, 255, 0.79);
+            font-weight: 600;
+            font-size: 13px;
+        }
+    }
+    .or-button {
+        .button {
+            border: 0;
+            margin-top: -45px;
+            position: absolute;
+            color: #fff;
+            text-transform: none;
+            font-size: 16px;
+        }
+    }
+    .signup {
+        margin: 0 35px;
+        text-align: center;
+        h2 {
+            font-size: 15px;
+            color: #fff;
+            a {
+                color: #edff00;
+                font-size: 15px;
+                margin: 0 10px;
+            }
+        }
+    }
+    .login {
+        margin: 0 35px;
+        .list>.item-block:first-child {
+            border-top: none;
+        }
+        .list>.item-block:last-child {
+            border-bottom: 1px solid #ddd;
+        }
+        .list .item-block .item-inner {
+            border-bottom: none;
+        }
+        .item {
+            border-bottom: 2px solid rgba(255, 255, 255, 0.79);
+            background-color: transparent;
+        }
+        h2 {
+            font-size: 13px;
+            text-align: right;
+            color: #fff;
+            letter-spacing: 0.2px;
+        }
+        h3 {
+            font-size: 15px;
+            text-align: center;
+        }
+        ion-icon {
+            color: #fff;
+            font-size: 2rem;
+        }
+        .button {
+            min-height: 50px;
+            color: #fff;
+            border: 2px solid rgba(255, 255, 255, 0.79);
+            font-weight: 600;
+            font-size: 13px;
+            margin: 0;
+        }
+        .item ion-icon[item-left] {
+            margin-left: 0;
+            margin-top: 9px;
+            margin-bottom: 0;
+        }
+        input {
+            font-size: 15px;
+            color: #fff;
+            letter-spacing: 0.2px;
+        }
+        ion-label[fixed] {
+            width: 70px;
+            min-width: 70px;
+            max-width: 85px;
+            color: #fff;
+            font-size: 15px;
+        }
+        .label+ion-input .text-input {
+            margin-left: 0;
+            width: calc(100% - (16px / 2) - 16px);
+        }
+        .item-md ion-icon[item-left]+.item-inner {
+            margin-left: 0;
+        }
+        .item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus) .item-inner {
+            border-bottom-color: #f2f2f2;
+            box-shadow: none;
+        }
+        .item-md.item-input.input-has-focus .item-inner {
+            box-shadow: none;
+        }
+        .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus) .item-inner {
+            border-bottom-color: transparent;
+            box-shadow: none;
+        }
+        .list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):last-child {
+            border-bottom-color: #f2f2f2;
+            box-shadow: none;
+        }
+        .list-md .item-input.input-has-focus:last-child {
+            box-shadow: none;
+        }
+        .list-md .item-input.ng-invalid.ng-touched:not(.input-has-focus):last-child {
+            border-bottom-color: #f2f2f2;
+            box-shadow: none;
+        }
+        .margin-error-message {
+            margin: 10px 20px 0;
+            h3 {
+                text-align: center;
+                color: #ff4444;
+                font-size: 15px;
+                margin-bottom: 0;
+            }
+        }
+    }
+    .button.activated {
+        background-color: transparent;
+        color: #8c8c8c;
+    }
+}
+.login-header {
+    .toolbar-background {
+        background: transparent;
+    }
+    .back-button {
+        color: #fff;
+    }
+}
+.close-button {
+    button {
+        border-radius: 4px;
+        height: 3em;
+        font-size: 1.6rem;
+        color: #fff;
+        background-color: transparent;
+        margin: 0.4rem 0.2rem;
+        padding: 0 1em;
+        z-index: 10;
+        float: left;
+        box-shadow: none;
+        .icon {
+            font-size: 24px;
+            margin: 16px 8px;
+            color: #fff;
+        }
+    }
+    .button-ios.activated, .button-md.activated {
+        background-color: transparent;
+        box-shadow: none;
+    }
+}

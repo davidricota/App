@@ -1,0 +1,137 @@
+.edit-address-form {
+    .Address-form {
+        .text-input {
+            border: 1px solid #d8d8d8;
+            height: 2.7em;
+            width: 100%;
+            border-radius: 4px;
+            padding: 0 12px;
+            margin: 0 0 12px 0;
+            font-size: 15px;
+            color: #5a5a5a;
+        }
+        ion-select {
+            border-radius: 5px;
+            margin-left: 16px;
+            max-width: 91%;
+            margin: 6px 0 12px 16px;
+            padding-right: 16px;
+        }
+        .select-item-field {
+            border: 1px solid #d8d8d8;
+            height: 35px;
+            border-radius: 3px;
+            width: calc(100% - 32px);
+            margin: 8px 0 4px 16px;
+            min-height: 40px;
+            .label {
+                font-size: 14px;
+                margin-left: 12px;
+            }
+        }
+        ion-input {
+            width: 91%;
+            margin: 6px 16px;
+        }
+        .label {
+            color: #676767;
+            font-size: 13px;
+            margin: 0 0 0 20px;
+        }
+        .billing-header {
+            background-color: #fff;
+            margin-bottom: 12px;
+            padding-top: 6px;
+            .label {
+                font-size: 17px;
+                color: #272727;
+            }
+        }
+        .item {
+            padding: 0;
+        }
+    }
+    .same-for-shipping {
+        margin: 24px 16px 16px;
+        border-radius: 5px;
+        .label {
+            font-size: 14px;
+            color: #000;
+            margin-left: 12px;
+        }
+        .item {
+            border: .5px solid #e8e8e8;
+            border-radius: 3px;
+        }
+    }
+    .side-heading-background {
+        background-color: #f2f2f2;
+    }
+    .heading-label {
+        font-size: 18px;
+        font-weight: 500;
+    }
+    .list {
+        margin: 0px 0 16px 0;
+    }
+    .label {
+        margin: 5px 0;
+        font-size: 15px;
+    }
+    .item.item-label-floating .text-input {
+        margin: 0 0 8px 0;
+        font-size: 15px;
+    }
+    .label[floating] {
+        font-size: 14px;
+        color: #999;
+    }
+    .button {
+        margin: 0px;
+        padding: 0 1em;
+        height: 2.5em;
+        border-radius: 0px;
+        font-size: 1.6rem;
+    }
+    .margin {
+        margin: 0 25px 25px 25px;
+    }
+    .select-text {
+        min-width: 16px;
+        font-size: 14px;
+    }
+    .list .item-block .item-inner {
+        border-bottom: 0;
+    }
+    .item.item-block .item-inner {
+        border-bottom: 0;
+    }
+    .list>.item-block:first-child {
+        border-top: none;
+    }
+    .item-md.item-toggle ion-label {
+        margin-left: 16px;
+    }
+    .item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus) .item-inner {
+        border-bottom-color: #f2f2f2;
+        box-shadow: none;
+    }
+    .item-md.item-input.input-has-focus .item-inner {
+        box-shadow: none;
+    }
+    .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus) .item-inner {
+        border-bottom-color: #f2f2f2;
+        box-shadow: none;
+    }
+    .list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):last-child {
+        border-bottom-color: #f2f2f2;
+        box-shadow: none;
+    }
+    .list-md .item-input.input-has-focus:last-child {
+        box-shadow: none;
+    }
+    .list-md .item-input.ng-invalid.ng-touched:not(.input-has-focus):last-child {
+        border-bottom-color: #f2f2f2;
+        box-shadow: none;
+    }
+}

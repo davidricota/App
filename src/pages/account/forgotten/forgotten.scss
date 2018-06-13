@@ -1,0 +1,117 @@
+.forgotten:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+}
+.forgotten {
+    background-image: url("../assets/image/login.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    .margin {
+        margin: 0 30px;
+        justify-content: center;
+        display: flex;
+        align-items: center;
+        min-height: 70%;
+    }
+    .button {
+        min-height: 50px;
+        color: #fff;
+        border: 2px solid rgba(255, 255, 255, 0.79);
+        font-weight: 600;
+        font-size: 12px;
+        margin-top: 10px;
+    }
+    .list {
+        margin: 0 0 16px 0;
+    }
+    .label-md[floating], .label-ios[floating] {
+        margin: 2px 8px -2px;
+        color: #e4e4e4;
+        font-size: 16px;
+    }
+    .item {
+        padding: 0;
+        background-color: transparent;
+    }
+    .item .item-block .item-inner {
+        padding-right: 8px;
+        border-bottom: 1px solid rgba(222, 222, 222, 0.67);
+    }
+    .item-ios.item-block .item-inner {
+        padding-right: 8px;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.79);
+    }
+    form {
+        margin: 20px 0 0 0;
+    }
+    h4 {
+        font-size: 21px;
+        color: #fff;
+        text-align: center;
+    }
+    h5 {
+        font-size: 13px;
+        color: #fff;
+        text-align: center;
+    }
+    .text-input {
+        font-size: 16px;
+        color: #fff;
+        margin: 4px 8px;
+    }
+    input {
+        font-size: 15px;
+        color: #fff;
+        letter-spacing: 0.2px;
+    }
+    ion-label[fixed] {
+        width: 70px;
+        min-width: 70px;
+        max-width: 85px;
+        color: #fff;
+        font-size: 15px;
+        flex: 0;
+    }
+    .label+ion-input .text-input {
+        margin-left: 0;
+        width: calc(100% - (16px / 2) - 16px);
+    }
+    .item-md ion-icon[item-left]+.item-inner {
+        margin-left: 0;
+    }
+    .item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus) .item-inner {
+        border-bottom-color: #f2f2f2;
+        box-shadow: none;
+    }
+    .item-md.item-input.input-has-focus .item-inner {
+        box-shadow: none;
+    }
+    .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus) .item-inner {
+        border-bottom-color: transparent;
+        box-shadow: none;
+    }
+    .list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):last-child {
+        border-bottom-color: #f2f2f2;
+        box-shadow: none;
+    }
+    .list-md .item-input.input-has-focus:last-child {
+        box-shadow: none;
+    }
+    .list-md .item-input.ng-invalid.ng-touched:not(.input-has-focus):last-child {
+        border-bottom-color: #f2f2f2;
+        box-shadow: none;
+    }
+}
+.forgot-header {
+    .toolbar-ios-header .toolbar-background-ios, .toolbar-md-header .toolbar-background-md {
+        background: transparent;
+    }
+    .toolbar-ios-header .bar-button-default-ios, .toolbar-md-header .bar-button-default-md {
+        color: #fff;
+    }
+}

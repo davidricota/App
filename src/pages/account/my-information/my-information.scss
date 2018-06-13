@@ -1,0 +1,89 @@
+.my-information {
+    .list {
+        margin: 0px 0 16px 0;
+    }
+    .label {
+        margin: 6px 0;
+        font-size: 15px;
+        color: #151515;
+    }
+    img {
+        width: 30%;
+        height: auto;
+        margin: auto;
+        display: block;
+        margin-top: 16px;
+        border-radius: 50%;
+    }
+    .my-info {
+        margin: 12px 16px;
+        .list .item-block .item-inner {
+            border-bottom: none;
+        }
+        .list>.item-block:first-child {
+            border-top: none;
+        }
+        .list>.item-block:last-child {
+            border-bottom: none;
+        }
+        .text-input {
+            border: 1px solid #d8d8d8;
+            height: 2.8em;
+            width: 100%;
+            border-radius: 4px;
+            padding: 0 12px;
+            margin: 0 0 12px 0;
+            font-size: 15px;
+            color: #5a5a5a;
+        }
+        .item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus) .item-inner {
+            border-bottom-color: transparent;
+            box-shadow: none;
+        }
+        .item-md.item-input.input-has-focus .item-inner {
+            box-shadow: none;
+        }
+        .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus) .item-inner {
+            border-bottom-color: transparent;
+            box-shadow: none;
+        }
+        .list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):last-child {
+            border-bottom-color: transparent;
+            box-shadow: none;
+        }
+        .list-md .item-input.input-has-focus:last-child {
+            box-shadow: none;
+        }
+        .list-md .item-input.ng-invalid.ng-touched:not(.input-has-focus):last-child {
+            border-bottom-color: transparent;
+            box-shadow: none;
+        }
+        .disabled {
+            .text-input {
+                height: 2.8em;
+                width: 100%;
+                border-radius: 4px;
+                padding: 0 12px;
+                margin: 0;
+                font-size: 15px;
+                color: #000;
+                font-weight: 600;
+                background-color: #f5f5f5;
+                padding-bottom: 8px;
+            }
+        }
+    }
+    .error-message {
+        margin: 10px 20px;
+        h3 {
+            text-align: center;
+            color: #ff4444;
+            font-size: 15px;
+            margin-bottom: 0;
+        }
+        button {
+            margin-top: 24px;
+            border-radius: 5px;
+        }
+    }
+}

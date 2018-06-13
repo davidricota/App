@@ -1,0 +1,105 @@
+<ion-menu [content]="content" type="overlay">
+   <div class="menu-toolbar">
+      <ion-toolbar>
+         <h2>{{"MY SHOP" | translate}}</h2>
+      </ion-toolbar>
+   </div>
+   <ion-content class="sidemenugrad">
+      <div *ngIf="service.categories" class="category-name-list">
+         <ion-row tappable full *ngFor="let item of service.mainCategories; let i = index">
+            <ion-item (click)="getSubCategoryDropdown(i)" class="category" no-lines [ngClass]="{selected : service.mainCategories[i].activated}">
+            <h4 [innerHTML]="item.name">
+            </h4>
+            <h4 item-right *ngIf="service.mainCategories[i].activated" no-margin>
+               <ion-icon name="ios-arrow-up" item-right style="margin-top:0"></ion-icon>
+            </h4>
+            <h4 item-right *ngIf="!service.mainCategories[i].activated" no-margin>
+               <ion-icon name="ios-arrow-down" item-right></ion-icon>
+            </h4>
+            </ion-item>
+            <div *ngIf="service.mainCategories[i].activated" style="width:100%">
+               <div class="sub-category">
+                  <ion-item tappable no-lines class="category-title" (click)="getCategory(item.id, item.slug, item.name)">
+                     <ion-icon name="ios-arrow-forward" item-left></ion-icon>
+                     <ion-icon name="ios-arrow-forward" item-left style="margin-right:10px"></ion-icon>
+                        {{"View All" | translate}}
+                  </ion-item>
+                     <div *ngFor="let subcat of service.categories">
+                     <ion-item tappable *ngIf="subcat.parent == item.id" no-lines class="category-title" (click)="getCategory(subcat.id, subcat.slug, subcat.name)">
+                        <ion-icon name="ios-arrow-forward" item-left></ion-icon>
+                        <ion-icon name="ios-arrow-forward" item-left style="margin-right:10px"></ion-icon>
+                        <span class="category-name" [innerHTML]="subcat.name"></span>
+                     </ion-item>
+                  </div>
+               </div>
+            </div>
+         </ion-row>
+      </div>
+      <ion-list class="list-items">
+         <ion-item tappable menuClose (click)="shop()" [ngClass]="{selected: activated}">
+         <ion-icon name="ios-home" item-left></ion-icon>
+         {{"Home" | translate}}
+         </ion-item>
+         <ion-item tappable menuClose (click)="login()" *ngIf="!values.isLoggedIn" [ngClass]="{selected: activated}">
+         {{"LogIn" | translate}} / {{"Sign Up" | translate}}
+         <ion-icon name="md-log-in" item-left></ion-icon>
+         </ion-item>
+         <!--ion-item tappable menuClose (click)="myAccount()" *ngIf="values.isLoggedIn">
+            {{"My" | translate}} {{"Account" | translate}}
+            <ion-icon name="md-person" item-left></ion-icon>
+            </ion-item-->
+         <ion-item tappable menuClose (click)="cart()">
+            {{"Checkout" | translate}}
+            <ion-icon name="md-cart" item-left></ion-icon>
+         </ion-item>
+         <ion-item tappable menuClose (click)="logout()" *ngIf="values.isLoggedIn">
+         <ion-icon name="md-log-out" item-left></ion-icon>
+         {{"Logout" | translate}}
+         </ion-item>
+         <ion-item tappable (click)="more()" *ngIf="!showmore">
+         <ion-icon item-left name="ios-more" style="font-size:28px;display:flex"></ion-icon>
+         {{"More" | translate}}
+         </ion-item>
+         <div *ngIf="showmore">
+            <ion-item tappable menuClose (click)="contact()">
+               {{"contact" | translate}}
+               <ion-icon name="ios-mail" item-left></ion-icon>
+            </ion-item>
+            <ion-item tappable menuClose (click)="post(values.data.pages.about)">
+               {{"About us" | translate}}
+               <ion-icon name="ios-information-circle" item-left></ion-icon>
+            </ion-item>
+            <ion-item tappable menuClose (click)="post(values.data.pages.terms)">
+               <ion-icon name="ios-paper" item-left></ion-icon>
+               {{"Terms & Conditions" | translate}}
+            </ion-item>
+            <ion-item tappable menuClose no-line (click)="shareApp()">
+               <ion-icon name="md-share" item-left></ion-icon>
+               {{"Share App" | translate}}
+            </ion-item>
+            <ion-item tappable menuClose no-line (click)="rateApp()">
+               <ion-icon name="md-thumbs-up" item-left></ion-icon>
+               {{"Rate App" | translate}}
+            </ion-item>
+         </div>
+         <ion-item tappable (click)="more()" *ngIf="showmore">
+         <ion-icon item-left name="ios-more" style="font-size:28px;display:flex"></ion-icon>
+         {{"Less" | translate}}
+         </ion-item>
+      </ion-list>
+      <h5 class="footer-icons">
+         <a href="https://www.facebook.com/">
+         <ion-icon name="logo-facebook" style="color: #3b5998;"></ion-icon>
+         </a>
+         <a href="https://twitter.com/">
+         <ion-icon name="logo-twitter" style="color: #1dcaff;"></ion-icon>
+         </a>
+         <a href="https://plus.google.com">
+         <ion-icon name="logo-googleplus" style="color: #d34836;"></ion-icon>
+         </a>
+      </h5>
+      <br showWhen="ios">
+   </ion-content>
+</ion-menu>
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false">
+</ion-nav>

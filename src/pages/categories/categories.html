@@ -1,0 +1,42 @@
+<ion-header no-border class="home-header">
+    <ion-navbar color="header"> <button ion-button menuToggle>
+      <ion-icon name="menu">
+      </ion-icon>
+    </button>
+        <ion-title text-center>{{"Categories" | translate}} </ion-title>
+        <ion-buttons end> <button ion-button icon-only light class="has-icon icon-only has-badge" (click)="getCart()">
+        <ion-icon class="ion-md-cart item-icon">
+        </ion-icon>
+        <ion-badge class="badge badge-light" *ngIf="values.count != 0">{{values.count}}
+        </ion-badge>
+      </button> </ion-buttons>
+    </ion-navbar>
+</ion-header>
+<ion-content class="categoriesPage">
+    <div class="attributes" *ngIf="service?.categories">
+        <ion-grid *ngIf="service.mainCategories">
+            <ion-row>
+                <ion-col width-40 class="col-left" style="overflow-y: scroll;height: 86vh;">
+                    <div *ngFor="let item of service.mainCategories" class="tab-left-item" [ngClass]="{selected: item.id == catId}">
+                        <h2 (click)="getSubcategories(item.id, item.image, item.name)" [innerHTML]="item.name" text-wrap></h2>
+                    </div> <br/> </ion-col>
+                <ion-col width-60 class="col-right" style="overflow-y: scroll;height: 86vh;">
+                    <ion-spinner *ngIf="loading" name="ios-small"> </ion-spinner>
+                    <ion-list no-margin text-wrap radio-group>
+                        <!--div class="cat-image"> <img *ngIf="image?.src" src="{{image.src}}"> </div-->
+                        <!--ion-item no-lines (click)="getCategory(catId, catName)" class="view-all"> <button ion-button small item-right> {{"Explore All" | translate}}</button> </ion-item-->
+                        <ion-row class="row unlimited-items" *ngIf="subCategories?.length">
+                            <ion-col *ngFor="let subcat of subCategories" (click)="getCategory(subcat.id, subcat.name)" class="col"> <img *ngIf="subcat.image?.src" src="{{subcat.image.src}}">
+                                <ion-label [innerHTML]="subcat.name"></ion-label>
+                            </ion-col>
+                            <!--ion-col (click)="getCategory(catId, catName)" class="viewAll">
+                          <img src="assets/image/viewAll.jpg">
+                        </ion-col--></ion-row> <br/>
+                        <!--div *ngIf="!subCategories?.length" (click)="getCategory(catId, catName)" class="view">
+                          <img src="assets/image/viewAll.jpg">
+                      </div--></ion-list>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+</ion-content>

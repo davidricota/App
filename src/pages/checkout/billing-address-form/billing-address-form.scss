@@ -1,0 +1,464 @@
+.active-content {
+    background-image: url("../assets/image/login.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    .toolbar-md-header .toolbar-background-md, .toolbar-ios-header .toolbar-background-ios {
+        display: none;
+    }
+}
+.inactive {
+    background-color: #fff;
+}
+.active-content:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+}
+.billing-address-form {
+    .side-heading-background {
+        background-color: #f6f6f6;
+        ion-label {
+            font-size: 15px;
+        }
+    }
+    .payment-method-title {
+        padding-left: 20px;
+    }
+    a {
+        color: #387ef5;
+    }
+    .stripe-payment {
+        margin: 0;
+        padding: 10px;
+    }
+    .woocommerce-message {
+        padding: 16px;
+    }
+    .button-margin {
+        margin: 5px;
+    }
+    ion-label {
+        font-size: 14px;
+        margin: 0 0 0 20px;
+        font-weight: 500;
+    }
+    scroll-content {
+        padding-bottom: 52px;
+    }
+    ion-col {
+        padding: 5px 5px 5px 0;
+    }
+    ion-row {
+        padding: 5px 5px 5px 0;
+    }
+    .button {
+        margin-bottom: 5px;
+        padding: 0 1em;
+        height: 3.2em;
+        border-radius: 0;
+        font-size: 14px;
+    }
+    .item {
+        position: relative;
+        padding-left: 0px;
+        border-radius: 0;
+        font-size: 1.7rem;
+        color: #000;
+        transition: background-color 200ms linear;
+    }
+    .login-form {
+        margin: 0 35px;
+        .list>.item-block:first-child {
+            border-top: none;
+        }
+        .list>.item-block:last-child {
+            border-bottom: 1px solid #ddd;
+        }
+        .list .item-block .item-inner {
+            border-bottom: none;
+        }
+        .item {
+            border-bottom: 2px solid rgba(255, 255, 255, 0.79);
+            background-color: transparent;
+        }
+        h2 {
+            font-size: 13px;
+            text-align: right;
+            color: #fff;
+            letter-spacing: 0.2px;
+        }
+        h3 {
+            font-size: 15px;
+            text-align: center;
+        }
+        h5{
+           margin: 10px 0 30px;
+           font-size: 16px;
+           color: #fff;
+           text-align: center;
+        }
+        ion-icon {
+            color: #fff;
+            font-size: 2rem;
+        }
+        .button {
+            min-height: 50px;
+            color: #fff;
+            border: 2px solid rgba(255, 255, 255, 0.79);
+            font-weight: 600;
+            font-size: 13px;
+            margin: 0;
+        }
+        .item ion-icon[item-left] {
+            margin-left: 0;
+            margin-top: 9px;
+            margin-bottom: 0;
+        }
+        input {
+            font-size: 15px;
+            color: #fff;
+            letter-spacing: 0.2px;
+        }
+        ion-label[fixed] {
+            width: 70px;
+            min-width: 70px;
+            max-width: 85px;
+            color: #fff;
+            font-size: 15px;
+        }
+        .label+ion-input .text-input {
+            margin-left: 0;
+            width: calc(100% - (16px / 2) - 16px);
+        }
+        .item-md ion-icon[item-left]+.item-inner {
+            margin-left: 0;
+        }
+        .item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus) .item-inner {
+            border-bottom-color: #f2f2f2;
+            box-shadow: none;
+        }
+        .item-md.item-input.input-has-focus .item-inner {
+            box-shadow: none;
+        }
+        .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus) .item-inner {
+            border-bottom-color: transparent;
+            box-shadow: none;
+        }
+        .list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):last-child {
+            border-bottom-color: #f2f2f2;
+            box-shadow: none;
+        }
+        .list-md .item-input.input-has-focus:last-child {
+            box-shadow: none;
+        }
+        .list-md .item-input.ng-invalid.ng-touched:not(.input-has-focus):last-child {
+            border-bottom-color: #f2f2f2;
+            box-shadow: none;
+        }
+        .margin-error-message {
+            margin: 10px 20px 0;
+            h3 {
+                text-align: center;
+                color: #ff4444;
+                font-size: 15px;
+                margin-bottom: 0;
+            }
+        }
+        .continue-as-guest {
+            text-align: center;
+            //position: absolute;
+            //width: calc(100% - 70px);
+            bottom: 24px;
+            .button {
+                min-height: 50px;
+                color: #fff;
+                border: 2px solid rgba(255, 255, 255, 0.79);
+                font-weight: 600;
+                font-size: 13px;
+                .icon {
+                    margin-left: 16px
+                }
+            }
+        }
+    }
+    .shop-info {
+        margin: 10px 10px 40px 10px;
+        ;
+        h1 {
+            text-align: center;
+            color: #fff;
+            font-size: 25px;
+        }
+        h2 {
+            padding-top: 24px;
+            text-align: center;
+            color: #fff;
+            font-size: 15px;
+        }
+    }
+    .Address-form {
+        .text-input {
+            border: 1px solid #d8d8d8;
+            height: 2.7em;
+            width: 100%;
+            border-radius: 4px;
+            padding: 0 12px;
+            margin: 0 0 12px 0;
+            font-size: 15px;
+            color: #5a5a5a;
+        }
+        ion-select {
+            //border: .5px solid #d8d8d8;
+            border-radius: 5px;
+            margin-left: 16px;
+            max-width: 91%;
+            margin: 6px 0 12px 16px;
+            padding-right: 16px;
+        }
+        .select-item-field {
+            border: 1px solid #d8d8d8;
+            height: 35px;
+            border-radius: 3px;
+            width: calc(100% - 32px);
+            margin: 8px 0 4px 16px;
+            min-height: 40px;
+            .label {
+                font-size: 14px;
+                margin-left: 12px;
+            }
+        }
+        ion-input {
+            width: 91%;
+            margin: 6px 16px;
+        }
+        .label {
+            color: #676767;
+            font-size: 13px;
+            margin: 0 0 0 20px;
+        }
+        .billing-header {
+            background-color: #fff;
+            margin-bottom: 12px;
+            padding-top: 6px;
+            .label {
+                font-size: 17px;
+                color: #272727;
+            }
+        }
+        .same-for-shipping {
+            margin: 20px 16px 16px;
+            border-radius: 5px;
+            .label {
+                font-size: 14px;
+                color: #000;
+                margin-left: 12px;
+            }
+            .item {
+                border: .5px solid #e8e8e8;
+                border-radius: 3px;
+            }
+        }
+        .row {
+            padding: 5px 0;
+            .col {
+                padding: 5px 0;
+                button {
+                    border-radius: 25px;
+                    width: 125px;
+                    margin: 0 16px;
+                    color: $button-color;
+                    background: #ffffff;
+                    border-color: $button-color;
+                }
+            }
+        }
+        .list-ios>.item-block:last-child {
+            border-bottom: .5px solid #d8d8d8;
+        }
+    }
+    .shipping-methods {
+        .shipping-method-header {
+            .label {
+                color: #333;
+                font-weight: 600;
+                font-size: 15px;
+            }
+        }
+        .list-ios>.item-block:last-child {
+            border-bottom: none;
+        }
+    }
+    .order-summary {
+        .item.item-block .item-inner {
+            padding-bottom: 0;
+        }
+        .order-review-header {
+            .label {
+                color: #333;
+                font-weight: 600;
+                font-size: 15px;
+            }
+        }
+        .row {
+            margin: 5px 5px 0px 16px; //border-bottom: .5px solid #f1f1f1;
+            padding: 7px 5px 5px 0px;
+            .label {
+                //font-weight:600;
+            }
+            .col1 {
+                .label {
+                    color: #848484;
+                }
+            }
+        }
+        .grand-total {
+            border-bottom: none;
+            margin-bottom: 10px;
+        }
+    }
+    .payment-methods {
+        .payment-method-header {
+            .label {
+                color: #333;
+                font-weight: 600;
+                font-size: 15px;
+            }
+        }
+        .payment-instructions {
+            margin: 0 16px 0 20px;
+            padding-top: 16px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        .list-ios>.item-block:last-child {
+            border-bottom: 0;
+        }
+    }
+    .list>.item-block:first-child, {
+        border-top: 0;
+    }
+    .list .item-block .item-inner {
+        border-bottom: 0;
+    }
+    input:-webkit-autofill {
+        background-color: #fff;
+        color: #9e9898;
+    }
+    .item-input ion-input, .item-input ion-textarea {
+        margin: 0 5px 5px 20px;
+    }
+    .select-text {
+        min-width: 16px;
+        font-size: 14px;
+    }
+    .item-input ion-input {
+        margin: 0;
+    }
+    .item.item-label-floating .text-input {
+        margin: 8px 0 8px 20px;
+        font-size: 14px;
+    }
+    .item-md.item-toggle ion-label {
+        margin-left: 16px;
+    }
+    .list-ios {
+        margin: -1px 0 0px;
+    }
+    .item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus) .item-inner {
+        border-bottom-color: #f2f2f2;
+        box-shadow: none;
+    }
+    .item-md.item-input.input-has-focus .item-inner {
+        box-shadow: none;
+    }
+    .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus) .item-inner {
+        border-bottom-color: #f2f2f2;
+        box-shadow: none;
+    }
+    .list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):last-child {
+        border-bottom-color: #f2f2f2;
+        box-shadow: none;
+    }
+    .list-md .item-input.input-has-focus:last-child {
+        box-shadow: none;
+    }
+    .list-md .item-input.ng-invalid.ng-touched:not(.input-has-focus):last-child {
+        border-bottom-color: #f2f2f2;
+        box-shadow: none;
+    }
+    .address {
+        margin: 5px;
+        h2 {
+            margin: 5px 0 5px 16px;
+            font-size: 14.5px;
+            font-weight: normal;
+            line-height: 1.5;
+            color: #020202;
+        }
+        h1 {
+            margin: 16px 0 12px 16px;
+            font-size: 15px;
+            color: #333;
+            font-weight: 600;
+        }
+        .item {
+            margin: 0; //background: #fbfbfb;
+            .button {
+                width: 100px;
+                color: $button-color;
+                background-color: #fff;
+                margin: 5px 3px;
+                font-size: 13px;
+                .icon {
+                    margin-right: 8px;
+                }
+            }
+            .label {
+                margin-left: 0;
+            }
+        }
+    }
+    .stripe-payment {
+        margin: 0;
+        margin-top: 5px;
+        background: #fff;
+        padding: 8px;
+    }
+    .item.item-ios .checkbox-ios, .item.item-md .checkbox-md {
+        position: static;
+        display: block;
+        margin: 8px -5px 0px 20px;
+    }
+    .checkbox-ios .checkbox-checked, .checkbox-md .checkbox-checked {
+        border-color: $button-color;
+        background-color: $button-color;
+    }
+    .check-box-bottom {
+        .col1 {
+            max-width: 10%;
+            margin-left: 16px;
+        }
+        .col2 {
+            .label {
+                margin: 0;
+            }
+        }
+        .checkbox-md .checkbox-checked {
+            border-color: $button-color;
+            background-color: $button-color;
+        }
+        .checkbox-ios .checkbox-checked {
+            border-color: $button-color;
+            background-color: $button-color;
+        }
+    }
+}
+.billing-header {
+    .toolbar-title-md {
+        padding-right: 75px;
+    }
+}

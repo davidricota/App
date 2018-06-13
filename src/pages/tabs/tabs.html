@@ -1,0 +1,6 @@
+<ion-tabs tabsPlacement="bottom">
+    <ion-tab [root]="tab1Root" tabTitle=" {{'Home' | translate}}" tabIcon="md-home" (ionSelect)="home($event)"></ion-tab>
+    <ion-tab [root]="tab2Root" tabTitle="{{'Categories' | translate}}" tabIcon="md-apps" (ionSelect)="category($event)"></ion-tab>
+    <ion-tab [root]="tab3Root" tabTitle="{{'Search' | translate}}" tabIcon="md-search"></ion-tab>
+    <ion-tab [root]="tab4Root" tabTitle="{{'My Account' | translate}}" tabIcon="md-person" (ionSelect)="account($event)"></ion-tab>
+</ion-tabs>

@@ -1,0 +1,233 @@
+.wishlistPage {
+    .margin {
+        margin: 5px;
+        h2 {
+            margin: 60px 18px;
+            font-size: 14px;
+            color: $button-color;
+            text-align: center;
+            text-transform: uppercase;
+        }
+    }
+    h2 {
+        margin-left: 16px;
+    }
+    h3 {
+        margin-left: 16px;
+    }
+    .item ion-thumbnail {
+        min-width: 5.6rem;
+        min-height: 5.6rem;
+        width: 10rem;
+        height: 10rem;
+        margin: 8px 16px 8px 8px;
+    }
+    .item ion-thumbnail img {
+        max-width: 10rem;
+        max-height: 10rem;
+        width: 10rem;
+        height: 10rem;
+    }
+    .col {
+        padding: 0;
+        height: 32px;
+    }
+    .stock {
+        .button {
+            position: absolute;
+            top: 35%;
+            left: 12px;
+            width: 90px;
+            font-size: 10px;
+            margin: 0;
+            -webkit-transform: rotate(-45deg);
+            transform: rotate(0deg);
+            height: 25px;
+            background-color: #ececec;
+            padding-left: 5px;
+            z-index: 1;
+            color: #f94e4e;
+            font-weight: 600;
+            font-size: 12px;
+        }
+    }
+    ion-label {
+        margin: 0;
+    }
+    .add-remove-button {
+        .item [item-left], .item [item-right] {
+            margin: 0;
+        }
+        .button {
+            font-size: 13px;
+        }
+    }
+    .wish-list {
+        margin: 12px 0;
+        .item.item-block .item-inner {
+            padding-bottom: 10px;
+        }
+        h2 {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: 15px;
+            margin: 5px 0;
+        }
+        h3 {
+            font-size: 13px;
+            margin: 5px 0;
+        }
+        .price {
+            text-align: end;
+            margin-top: 3px;
+            h4 {
+                font-size: 14px;
+                margin: 0;
+                color: $header;
+            }
+        }
+        .col {
+            padding: 0;
+        }
+        .item-name {
+            font-size: 15px;
+            white-space: pre-line;
+            line-height: 1.4;
+        }
+        .short-description {
+            margin-top: 6px;
+            margin-top: 6px;
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6em;
+            max-height: 1.6em;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+        .edit-buttons {
+            border: .5px solid #f3f3f3;
+            margin: 0 8px;
+            .button {
+                color: #000;
+                font-size: 13px;
+                .icon {
+                    margin-right: 8px;
+                    margin-bottom: 6px;
+                }
+            }
+            .col {
+                border-right: .5px solid #e0e0e0;
+            }
+        }
+        h5 {
+            font-size: 15px;
+            margin: 8px 0;
+            color: $header;
+        }
+        h4 {
+            margin: 6px 0;
+            span {
+                color: #999;
+            }
+        }
+        .rating-button-grid1 {
+            margin: -12px 6px 0 0px;
+            color: #f9f9f9;
+            font-size: 8px;
+            border-radius: 3px;
+            background: #1caf1c;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            .ion-md-star:before, .ion-ios-star:before {
+                margin-right: 5px;
+            }
+            .icon {
+                font-size: 12px;
+            }
+        }
+    }
+    .empty-wishlist {
+        margin-top: 100px;
+        h4 {
+            font-size: 13px;
+            margin: 30px 0;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: #666;
+        }
+        h5 {
+            font-size: 15px;
+            color: #666666;
+            margin: 30px;
+        }
+        h6 {
+            font-size: 14px;
+            margin: 30px 0;
+            color: #444;
+            a {
+                color: #265dc5;
+                font-size: 17px;
+            }
+        }
+        img {
+            max-width: 130px;
+            height: 100px;
+            width: 100px;
+            margin: auto;
+            display: block;
+        }
+        .button {
+            border-radius: 20px;
+            margin: auto;
+            display: block;
+            height: 3em;
+        }
+    }
+    .item {
+        padding-left: 0;
+    }
+    ion-icon {
+        font-size: 1.3em;
+        margin: 5px;
+    }
+    .rating {
+        .star-icon {
+            color: #ddd;
+            font-size: 18px;
+            position: relative;
+        }
+        .star-icon.full:before {
+            color: #ffcd00;
+            content: '\2605';
+            position: absolute;
+            left: 0;
+        }
+        .star-icon.half:before {
+            color: #ffcd00;
+            content: '\2605';
+            position: absolute;
+            left: 0;
+            width: 50%;
+            overflow: hidden;
+        }
+        @-moz-document url-prefix() {
+            .star-icon {
+                font-size: 50px;
+                line-height: 34px;
+            }
+        }
+    }
+    .review-star {
+        .star-icon {
+            color: #ddd;
+            font-size: 1em;
+            position: relative;
+        }
+    }
+}
+.wishlist-header {
+    .toolbar-title-md {
+        padding-right: 45px;
+    }
+}

@@ -1,0 +1,88 @@
+<ion-header no-border class="login-header">
+    <ion-navbar> <button ion-button menuToggle style="color: white;">
+      <ion-icon name="menu">
+      </ion-icon>
+    </button> </ion-navbar>
+</ion-header>
+<ion-content class="my-account" [ngClass]="{'hideTab' : !showtab, 'showTab' : showtab}">
+    <div *ngIf="values.isLoggedIn">
+        <div class="account-header"> <span *ngIf="values.avatar"><img src="{{values.avatar}}"></span>
+            <h2 *ngIf="values.customerName">{{values.customerName}}</h2>
+        </div>
+        <div class="logged-in-contents">
+            <ion-row>
+                <ion-col (click)="Address()">
+                    <h1>
+                        <ion-icon item-left ios="ios-person-add" md="md-person-add"></ion-icon>
+                    </h1>
+                    <h2> {{"Address" | translate}} </h2>
+                </ion-col>
+                <ion-col (click)="orders()">
+                    <h1>
+                        <ion-icon item-left ios="ios-list-box" md="md-list-box"></ion-icon>
+                    </h1>
+                    <h2> {{"Orders" | translate}} </h2>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col (click)="wishlist()">
+                    <h1>
+                        <ion-icon ios="ios-heart" md="md-heart" item-left></ion-icon>
+                    </h1>
+                    <h2> {{"Wishlist" | translate}} </h2>
+                </ion-col>
+                <ion-col (click)="myInfo()">
+                    <h1>
+                        <ion-icon ios="ios-information-circle" md="ios-information-circle" item-left></ion-icon>
+                    </h1>
+                    <h2> My {{"Profile" | translate}} </h2>
+                </ion-col>
+            </ion-row>
+        </div>
+    </div>
+    <div *ngIf="!values.isLoggedIn">
+        <div class="shop-info">
+            <h1 text-uppercase>{{"Shop name" | translate}}</h1>
+            <h2>{{"The most fulfilling shopping experience" | translate}}.</h2>
+        </div>
+        <div class="login-div">
+            <ion-row>
+                <ion-col> <button ion-button outline block text-uppercase (click)="login()">{{"LogIn" | translate}}</button> </ion-col>
+                <ion-col> <button ion-button outline block text-uppercase (click)="sinuUp()">{{"Sign Up" | translate}}</button> </ion-col>
+            </ion-row>
+            <!--div style="margin: 5px;"> <button ion-button outline block text-uppercase (click)="login()">{{"Connect with facebook" | translate}}</button> </div-->
+        </div>
+    </div>
+    <div class="footer">
+        <ion-row>
+            <ion-col tappable>
+                <h6 (click)="shareApp()">{{"Share App" | translate}}</h6>
+            </ion-col>
+            <ion-col tappable>
+                <h6 (click)="contact()">{{"Feedback" | translate}}</h6>
+            </ion-col>
+            <ion-col tappable>
+                <h6 (click)="rateApp()">{{"Rate App" | translate}}</h6>
+            </ion-col>
+        </ion-row>
+        <ion-row style="padding:8px 3px 0 3px;">
+            <ion-col tappable>
+                <h6 (click)="contact()">{{"Contact Us" | translate}}</h6>
+            </ion-col>
+            <ion-col tappable>
+                <h6 (click)="post(this.values.data.pages.terms)">{{"Terms" | translate}}</h6>
+            </ion-col>
+            <ion-col tappable>
+                <h6 (click)="post(this.values.data.pages.about)">{{"About us" | translate}}</h6>
+            </ion-col>
+        </ion-row>
+        <div class="tabsElement">
+            <ion-item (click)="showtabs()" *ngIf="!showtab">
+                <ion-icon name="ios-arrow-up"></ion-icon>
+            </ion-item>
+            <ion-item (click)="hidetabs()" *ngIf="showtab">
+                <ion-icon name="ios-arrow-down"></ion-icon>
+            </ion-item>
+        </div>
+    </div>
+</ion-content>

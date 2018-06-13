@@ -1,0 +1,366 @@
+<ion-header no-border>
+    <ion-navbar color="header">
+        <ion-title style="overflow: hidden;text-overflow: ellipsis;"> {{product?.name}} </ion-title>
+        <ion-buttons end> <button ion-button icon-only light class="has-icon icon-only has-badge" (click)="getCart()">
+        <ion-icon class="ion-md-cart item-icon">
+        </ion-icon>
+        <ion-badge class="badge badge-light" *ngIf="values.count">{{values.count}}
+        </ion-badge>
+      </button> <button ion-button icon-only *ngIf="values.isLoggedIn" (click)="presentPopover($event)" style="color:#fff;margin-left:6px;margin-right:6px;">
+        <ion-icon ios="md-more" md="md-more" style="font-size:30px;"></ion-icon>
+      </button> </ion-buttons>
+    </ion-navbar>
+</ion-header>
+<ion-content class="product-page">
+    <ion-spinner *ngIf="!product" name="crescent"> </ion-spinner>
+    <div class="segment" *ngIf="product">
+        <ion-segment [(ngModel)]="segment" (ionChange)="updateSchedule($event)">
+            <ion-segment-button tappable value="overview">
+                <ion-label text-uppercase>{{"Overview" | translate}}</ion-label>
+            </ion-segment-button>
+            <ion-segment-button tappable value="related">
+                <ion-label text-uppercase>{{"Related" | translate}} </ion-label>
+            </ion-segment-button>
+            <ion-segment-button tappable value="reviews">
+                <ion-label text-uppercase>{{"Reviews" | translate}}</ion-label>
+            </ion-segment-button>
+        </ion-segment>
+    </div>
+    <div *ngIf="showOverview">
+        <div *ngIf="product" class="product-details">
+            <div *ngIf="product.images">
+                <ion-slides #slides pager="true" loop="true" autoplay="5800">
+                    <ion-slide *ngFor="let item of product.images"> <img src="{{item.src}}" (click)="zoomPhoto(item.src)"> </ion-slide>
+                </ion-slides>
+                <div class="scrollmenu2"> <a *ngFor="let item of product.images; let i = index">
+            <img src="{{item.src}}" (click)="viewPhoto(i)"/>
+          </a> </div>
+            </div>
+            <div *ngIf="product.in_stock && product.sale_price"> <span class="offer" text-uppercase>{{"Offer" | translate}}</span> </div> <button ion-button clear *ngIf="!product.in_stock" item-left class="stock" color="danger">{{"No Stock" | translate}}
+        </button>
+            <div class="body-index">
+                <h2 class="product-name"> {{product.name}} </h2>
+                <ion-item class="price-label" no-lines>
+                    <span *ngIf="!product.sale_price">{{product.price | currency:values.currency:symbol:'1.2-2'}} </span>
+                    <span *ngIf="product.sale_price"><span>{{product.sale_price | currency:values.currency:symbol:'1.2-2'}}</span></span>
+                    <span *ngIf="product.sale_price"><del>{{product.regular_price | currency:values.currency:symbol:'1.2-2'}}</del> <span class="offer-price" *ngIf="((product.regular_price - product.sale_price) /product.regular_price*100) >= '1'">{{(product.regular_price - product.sale_price) /product.regular_price*100 | number : '1.0-0'}}% {{"OFF" | translate}}</span> </span>
+                </ion-item>
+                <div (click)="showMoreReviews()"> <button ion-button icon-only small class="rating-button-grid1" style="height:20px">
+        <ion-icon name="md-star"><span class="rating-count">{{product.average_rating | number:'1.1-1'}}</span></ion-icon> 
+      </button> <span style="color: #777;">{{product.rating_count}} ratings</span> </div>
+                <h2 style="font-size: 14px;margin: 10px 16px 8px;color:#333;" *ngIf="product.total_sales != 0">{{product.total_sales}} items sold</h2>
+                <ion-grid class="rating-and-total-sales-grid">
+                    <ion-row>
+                        <ion-col> <button class="share" ion-button color="button-color" (click)="share(product)">
+              <ion-icon name="ios-share-alt"></ion-icon> {{"Share" | translate}}
+            </button> </ion-col>
+                        <!--ion-col>
+            <button class="share" ion-button color="button-color" (click)="similar()">
+              <ion-icon name="ios-browsers"></ion-icon> Similar
+            </button>
+          </ion-col-->
+                        <ion-col> <button ion-button clear *ngIf="values.wishlistId[product.id]" (click)="removeFromWishlist(product.id)" item-right class="wishlist1" color="danger">
+              <ion-icon name="ios-heart"></ion-icon> {{"Remove" | translate}}
+            </button> <button ion-button clear *ngIf="!values.wishlistId[product.id]" (click)="addToWishlist(product.id)" item-right class="wishlist2" color="danger"> 
+              <ion-icon name="ios-heart"></ion-icon> {{"Wishlist" | translate}}
+            </button> </ion-col>
+                    </ion-row>
+                </ion-grid>
+                <!--variation product starts-->
+                <div *ngIf="variations?.length" class="variation-product">
+                    <ion-item>
+                        <ion-label> {{"Select Option" | translate}} </ion-label>
+                        <ion-select okText="{{'OK' | translate}}" cancelText="{{'Cancel' | translate}}" [(ngModel)]="options[0]" (ngModelChange)="changeProduct()">
+                            <div *ngFor="let option of variations">
+                                <div *ngIf="option.attributes.length == 1">
+                                    <ion-option value="{{'variation_id:' + option.id + ':variation[attribute_pa_'+ option.attributes[0].name +']:' + option.attributes[0].option}}">{{option.attributes[0].option | uppercase}} - {{option.price | currency:values.currency:symbol:'1.2-2'}} </ion-option>
+                                </div>
+                                <div *ngIf="option.attributes.length == 2">
+                                    <ion-option value="{{'variation_id:' + option.id + ':variation[attribute_pa_'+ option.attributes[0].name +']:' + option.attributes[0].option + ':variation[attribute_pa_'+ option.attributes[1].name +']:' + option.attributes[1].option}}">{{option.attributes[0].option | uppercase}} - {{option.attributes[1].option | uppercase}} - {{option.price | currency:values.currency:symbol:'1.2-2'}} </ion-option>
+                                </div>
+                                <div *ngIf="option.attributes.length == 3">
+                                    <ion-option value="{{'variation_id:' + option.id + ':variation[attribute_pa_'+ option.attributes[0].name +']:' + option.attributes[0].option + ':variation[attribute_pa_'+ option.attributes[1].name +']:' + option.attributes[1].option + ':variation[attribute_pa_'+ option.attributes[2].name +']:' + option.attributes[2].option}}">{{option.attributes[0].option | uppercase}} - {{option.attributes[1].option | uppercase}} - {{option.attributes[2].option | uppercase}} - {{option.price | currency:values.currency:symbol:'1.2-2'}} </ion-option>
+                                </div>
+                            </div>
+                        </ion-select>
+                    </ion-item>
+                </div>
+                <div class="add-to-cart">
+                    <div class="quantity-item">
+                        <ion-item>
+                            <ion-label style="color: black">{{"Quantity" | translate}}</ion-label>
+                            <ion-input required type="number" [(ngModel)]="quantity" min="1" name="quantity"></ion-input>
+                        </ion-item>
+                    </div>
+                    <ion-grid>
+                        <ion-row>
+                            <ion-col width-50 class="buynow"> <button ion-button full color="button-color" text-uppercase [disabled]='disableBuyNow || !product.in_stock' (click)="buyNow(product.id)" style="color: #fff;margin: 0;width: 100%; min-height: 50px;">
+                {{"Buy now" | translate}}
+              </button> </ion-col>
+                            <ion-col width-50 class="keep"> <button ion-button full text-uppercase [disabled]='disableAddButton || !product.in_stock' (click)="addToCart(product.id)" style="color: #fff;background-color: #ffa41c;margin: 0;width: 100%; min-height: 50px;">
+                {{"AddToCart" | translate}}
+              </button> </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </div>
+                <div *ngIf="product?.attributes.length" class="description">
+                    <ion-item no-lines class="item-background" (click)="showSpecs()" *ngIf="!showSpecification"> {{"Specifications" | translate}}
+                        <ion-icon item-right name="ios-arrow-down"></ion-icon>
+                    </ion-item>
+                    <ion-item no-lines class="item-background" (click)="showSpecs()" *ngIf="showSpecification"> {{"Specifications" | translate}}
+                        <ion-icon item-right name="ios-arrow-up"></ion-icon>
+                    </ion-item>
+                    <ion-item text-wrap no-lines *ngIf="showSpecification">
+                        <div *ngFor="let attribute of product.attributes">
+                            <h3 class="sold-by">{{attribute.name}} - <span [innerHTML]="attribute.options[0]"></span></h3>
+                        </div>
+                    </ion-item> <br> </div>
+                <div *ngIf="product.description || product.short_description" class="description">
+                    <div *ngIf="product.short_description" class="description">
+                        <!--ion-item no-lines class="item-background"> {{"Description" | translate}} </ion-item-->
+                        <ion-item text-wrap no-lines>
+                            <div [innerHTML]="product.short_description"> </div>
+                        </ion-item>
+                    </div>
+                    <div *ngIf="product.description && moreDescription" class="description">
+                        <ion-item text-wrap no-lines>
+                            <div [innerHTML]="product.description"> </div>
+                        </ion-item>
+                    </div>
+                    <div *ngIf="product.description && !product.short_description" class="description">
+                        <ion-item no-lines class="item-background"> {{"Description" | translate}} </ion-item>
+                        <ion-item text-wrap no-lines>
+                            <div [innerHTML]="product.description"> </div>
+                        </ion-item>
+                    </div>
+                    <ion-item no-lines class="show-more" *ngIf="!moreDescription && product.short_description">
+                        <h2 (click)="showMore()"><span class="span1">{{"Read more" | translate}}</span><span class="span2"><ion-icon name="ios-more"></ion-icon></span></h2>
+                    </ion-item>
+                    <ion-item no-lines class="show-more" *ngIf="moreDescription">
+                        <h2 (click)="showLess()"><span class="span1">{{"Read less" | translate}}</span></h2>
+                    </ion-item> <br><br>
+                 </div>
+                 
+                <div *ngIf="reviews?.length">
+                    <ion-item *ngIf="reviews" class="item-background"> {{"Reviews" | translate}} </ion-item>
+                    <div *ngFor="let item of reviews | slice:0:2; let i=index" class="reviews">
+                        <ion-item no-lines>
+                            <ion-avatar item-start style="margin:8px">
+                <img src="https://www.gravatar.com/avatar/{{item.avatar}}">
+              </ion-avatar>
+                            <h3 style="margin-bottom:0px;font-size:15px"> <span class="rating review-star">
+               <span class="star-icon" [ngClass]="{full: item.rating >= 1, half: item.rating == 0.5}">&#x2605;</span> <span class="star-icon" [ngClass]="{full: item.rating >= 2, half: item.rating == 1.5}">&#x2605;</span> <span class="star-icon" [ngClass]="{full: item.rating >= 3, half: item.rating == 2.5}">&#x2605;</span> <span class="star-icon" [ngClass]="{full: item.rating >= 4, half: item.rating == 3.5}">&#x2605;</span> <span class="star-icon" [ngClass]="{full: item.rating >= 5, half: item.rating == 4.5}">&#x2605;</span> </span>
+                            </h3>
+                            <h3>By {{item.name}}</h3>
+                            <h3 style="color:#9e9898;margin-bottom:4px;font-size:13px">{{item.date_created | date:'medium'}}</h3>
+                        </ion-item>
+                        <p text-wrap>{{item.review}}</p>
+                    </div>
+                    <ion-item style="padding-top: 6px;" no-lines class="show-more" *ngIf="reviews?.length >= 3" (click)="showMoreReviews()">
+                        <h2 tappable style="border-radius:20px"><span class="span1">{{"Show more" | translate}}</span><span class="span2" style="top:5px"><ion-icon name="ios-more"></ion-icon></span></h2>
+                    </ion-item>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="related-products" *ngIf="showRelated" style="background-color: whitesmoke; margin-bottom: -30px;">
+        <div *ngIf="related?.length">
+            <ion-item *ngIf="related" style="background-color:#f5f5f5"> <b>{{"Related Products" | translate}}</b> </ion-item>
+            <div class="grid">
+                <ion-row class="row unlimited-items">
+                    <ion-col class="col" *ngFor="let item of related">
+                        <ion-card>
+                            <ion-card-content (click)="getRelatedProduct(item.id)"> <img src="{{item.image_thumb}}" />
+                                <div *ngIf="item.stock_status == 'instock' && item.sale_price && ((item.regular_price - item.sale_price) / item.regular_price*100) >= '1'" class="offer-tag"> <button ion-button small text-wrap>
+                  <span text-wrap>{{(item.regular_price - item.sale_price) / item.regular_price*100 | number : '1.0-0'}}% {{"OFF" | translate}}</span></button> </div>
+                            </ion-card-content>
+                            <h5 text-center>{{item.name}}</h5>
+                            <ion-label> <span class="price-regular" *ngIf="!item.sale_price">{{1*item.price | currency:values.currency:symbol:'1.2-2'}}
+              </span> <span class="price-regular" *ngIf="item.sale_price">{{1*item.sale_price | currency:values.currency:symbol:'1.2-2'}}
+              </span> <span *ngIf="item.sale_price" style="margin-left:6px">
+              <del>{{1*item.regular_price | currency:values.currency:symbol:'1.2-2'}}
+              </del>
+              </span> </ion-label>
+                            <h3 style="margin:4px 8px 6px 8px;font-size:12px;"> <span class="related-rating related-review-star">
+               <span class="star-icon" [ngClass]="{full: item.average_rating >= 1, half: item.average_rating == 0.5}">&#x2605;</span> <span class="star-icon" [ngClass]="{full: item.average_rating >= 2, half: item.average_rating == 1.5}">&#x2605;</span> <span class="star-icon" [ngClass]="{full: item.average_rating >= 3, half: item.average_rating == 2.5}">&#x2605;</span> <span class="star-icon" [ngClass]="{full: item.average_rating >= 4, half: item.average_rating == 3.5}">&#x2605;</span> <span class="star-icon" [ngClass]="{full: item.average_rating >= 5, half: item.average_rating == 4.5}">&#x2605;</span> </span>
+                            </h3>
+                        </ion-card>
+                    </ion-col>
+                </ion-row>
+            </div>
+        </div>
+        <div *ngIf="upsell?.length">
+            <ion-item *ngIf="upsell" no-lines style="background-color:#f5f5f5"> <b>{{"You may also like" | translate}}</b> </ion-item>
+            <div class="grid">
+                <ion-row class="row unlimited-items">
+                    <ion-col class="col" *ngFor="let item of upsell">
+                        <ion-card>
+                            <ion-card-content (click)="getRelatedProduct(item.id)"> <img src="{{item.image_thumb}}" />
+                                <div *ngIf="item.stock_status == 'instock' && item.sale_price && ((item.regular_price - item.sale_price) / item.regular_price*100) >= '1'" class="offer-tag"> <button ion-button small>
+                  <span text-wrap>{{(item.regular_price - item.sale_price) / item.regular_price*100 | number : '1.0-0'}}% {{"OFF" | translate}}</span></button> </div>
+                            </ion-card-content>
+                            <h5 text-center>{{item.name}}</h5>
+                            <ion-label> <span class="price-regular" *ngIf="!item.sale_price">{{1*item.price | currency:values.currency:symbol:'1.2-2'}}
+              </span> <span class="price-regular" *ngIf="item.sale_price">{{1*item.sale_price | currency:values.currency:symbol:'1.2-2'}}
+              </span> <span *ngIf="item.sale_price" style="margin-left:6px">
+              <del>{{1*item.regular_price | currency:values.currency:symbol:'1.2-2'}}
+              </del>
+              </span> </ion-label>
+                            <h3 style="margin:4px 8px 6px 8px;font-size:12px;"> <span class="related-rating related-review-star">
+               <span class="star-icon" [ngClass]="{full: item.average_rating >= 1, half: item.average_rating == 0.5}">&#x2605;</span> <span class="star-icon" [ngClass]="{full: item.average_rating >= 2, half: item.average_rating == 1.5}">&#x2605;</span> <span class="star-icon" [ngClass]="{full: item.average_rating >= 3, half: item.average_rating == 2.5}">&#x2605;</span> <span class="star-icon" [ngClass]="{full: item.average_rating >= 4, half: item.average_rating == 3.5}">&#x2605;</span> <span class="star-icon" [ngClass]="{full: item.average_rating >= 5, half: item.average_rating == 4.5}">&#x2605;</span> </span>
+                            </h3>
+                        </ion-card>
+                    </ion-col>
+                </ion-row>
+            </div>
+        </div>
+        <div *ngIf="crossSell?.length">
+            <ion-item *ngIf="crossSell" no-lines style="background-color:#f5f5f5"> <b>{{"Recommended" | translate}} for you</b> </ion-item>
+            <div class="grid">
+                <ion-row class="row unlimited-items">
+                    <ion-col class="col" *ngFor="let item of crossSell">
+                        <ion-card>
+                            <ion-card-content (click)="getRelatedProduct(item.id)"> <img src="{{item.image_thumb}}" />
+                                <div *ngIf="item.stock_status == 'instock' && item.sale_price && ((item.regular_price - item.sale_price) / item.regular_price*100) >= '1'" class="offer-tag"> <button ion-button small>
+                  <span text-wrap>{{(item.regular_price - item.sale_price) / item.regular_price*100 | number : '1.0-0'}}% OFF</span></button> </div>
+                            </ion-card-content>
+                            <h5 text-center>{{item.name}}</h5>
+                            <ion-label> <span class="price-regular" *ngIf="!item.sale_price">{{1*item.price | currency:values.currency:symbol:'1.2-2'}}
+                </span> <span class="price-regular" *ngIf="item.sale_price">{{1*item.sale_price | currency:values.currency:symbol:'1.2-2'}}
+                </span> <span *ngIf="item.sale_price" style="margin-right:6px">
+                <del>{{1*item.regular_price | currency:values.currency:symbol:'1.2-2'}}
+                </del>
+                </span> </ion-label>
+                            <h3 style="margin:4px 8px 6px 8px;font-size:12px;"> <span class="related-rating related-review-star">
+                 <span class="star-icon" [ngClass]="{full: item.average_rating >= 1, half: item.average_rating == 0.5}">&#x2605;</span> <span class="star-icon" [ngClass]="{full: item.average_rating >= 2, half: item.average_rating == 1.5}">&#x2605;</span> <span class="star-icon" [ngClass]="{full: item.average_rating >= 3, half: item.average_rating == 2.5}">&#x2605;</span> <span class="star-icon" [ngClass]="{full: item.average_rating >= 4, half: item.average_rating == 3.5}">&#x2605;</span> <span class="star-icon" [ngClass]="{full: item.average_rating >= 5, half: item.average_rating == 4.5}">&#x2605;</span> </span>
+                            </h3>
+                        </ion-card>
+                    </ion-col>
+                </ion-row>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="showReviews" class="show-reviews">
+        <div *ngIf="reviews">
+            <div class="review-info">
+                <ion-row>
+                    <ion-col style="border-right: 1px solid #f1f1f1;max-width:36%"> <button ion-button icon-only small class="rating-button-grid1" style="height:25px">
+            <ion-icon name="md-star" style="font-size: 17px"><span class="rating-count">{{product.average_rating | number:'1.1-1'}}</span></ion-icon> 
+          </button>
+                        <h2 style="color: #777;font-size: 14px;margin: 5px 0 0 10px;">{{product.rating_count}} ratings</h2>
+                    </ion-col>
+                    <ion-col class="review-star-group">
+                        <ion-row>
+                            <ion-col style="max-width:35%">
+                                <h3 style="margin-top:6px;"> <span class="rating review-star" style="float:none">
+                <span class="star-icon full">&#x2605;</span> <span class="star-icon full">&#x2605;</span> <span class="star-icon full">&#x2605;</span> <span class="star-icon full">&#x2605;</span> <span class="star-icon full">&#x2605;</span> </span>
+                                </h3>
+                            </ion-col>
+                            <ion-col style="max-width:45%">
+                                <div class="progress-bar" item-right> <span [style.width]="count5Percentage"></span> </div>
+                            </ion-col>
+                            <ion-col style="max-width:20%">
+                                <h4 item-right> <span>{{count5 | number : '1.0-0'}}</span> </h4>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col style="max-width:35%">
+                                <h3 style="margin-top:6px;"> <span class="rating review-star" style="float:none">
+                 <span class="star-icon full">&#x2605;</span> <span class="star-icon full">&#x2605;</span> <span class="star-icon full">&#x2605;</span> <span class="star-icon full">&#x2605;</span> <span class="star-icon">&#x2605;</span> </span>
+                                </h3>
+                            </ion-col>
+                            <ion-col style="max-width:45%">
+                                <div class="progress-bar" item-right> <span [style.width]="count4Percentage"></span> </div>
+                            </ion-col>
+                            <ion-col style="max-width:20%">
+                                <h4 item-right> <span>{{count4 | number : '1.0-0'}}</span> </h4>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col style="max-width:35%">
+                                <h3 style="margin-top:6px;"> <span class="rating review-star" style="float:none">
+                <span class="star-icon full">&#x2605;</span> <span class="star-icon full">&#x2605;</span> <span class="star-icon full">&#x2605;</span> <span class="star-icon">&#x2605;</span> <span class="star-icon">&#x2605;</span> </span>
+                                </h3>
+                            </ion-col>
+                            <ion-col style="max-width:45%">
+                                <div class="progress-bar" item-right> <span [style.width]="count3Percentage"></span> </div>
+                            </ion-col>
+                            <ion-col style="max-width:20%">
+                                <h4 item-right> <span>{{count3 | number : '1.0-0'}}</span> </h4>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col style="max-width:35%">
+                                <h3 style="margin-top:6px;"> <span class="rating review-star" style="float:none">
+               <span class="star-icon full">&#x2605;</span> <span class="star-icon full">&#x2605;</span> <span class="star-icon">&#x2605;</span> <span class="star-icon">&#x2605;</span> <span class="star-icon">&#x2605;</span> </span>
+                                </h3>
+                            </ion-col>
+                            <ion-col style="max-width:45%">
+                                <div class="progress-bar" item-right> <span [style.width]="count2Percentage"></span> </div>
+                            </ion-col>
+                            <ion-col style="max-width:20%">
+                                <h4 item-right> <span>{{count2 | number : '1.0-0'}}</span> </h4>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col style="max-width:35%">
+                                <h3 style="margin-top:6px;"> <span class="rating review-star" style="float:none">
+                <span class="star-icon full">&#x2605;</span> <span class="star-icon">&#x2605;</span> <span class="star-icon">&#x2605;</span> <span class="star-icon">&#x2605;</span> <span class="star-icon">&#x2605;</span> </span>
+                                </h3>
+                            </ion-col>
+                            <ion-col style="max-width:45%">
+                                <div class="progress-bar" item-right> <span [style.width]="count1Percentage"></span> </div>
+                            </ion-col>
+                            <ion-col style="max-width:20%">
+                                <h4 item-right> <span>{{count1 | number : '1.0-0'}}</span> </h4>
+                            </ion-col>
+                        </ion-row>
+                    </ion-col>
+                </ion-row>
+            </div>
+            <ion-card>
+                <ion-card-header style="background-color: #f5f5f5" tappable (click)="showSubmitReview()"> {{"Add a review" | translate}}
+                    <ion-icon *ngIf="!showAddReview" style="float: right" name="ios-arrow-down" item-right></ion-icon>
+                    <ion-icon *ngIf="showAddReview" style="float: right" name="ios-arrow-up" item-right></ion-icon>
+                </ion-card-header>
+                <ion-card-content>
+                    <div class="new-review" *ngIf="showAddReview">
+                        <ion-label style="margin: 10px 0 6px 18px; font-size:13px">{{form.name}} <span style="margin-right: 10px">{{"YOUR RATING" | translate}}</span> <span class="rating review-star" style="float:none;">
+              <span tappable (click)="yourRating(1)" class="star-icon" [ngClass]="{full: form.rating >= 1, half: form.rating == 0.5}">&#x2605;</span> <span tappable (click)="yourRating(2)" class="star-icon" [ngClass]="{full: form.rating >= 2, half: form.rating == 1.5}">&#x2605;</span> <span tappable (click)="yourRating(3)" class="star-icon" [ngClass]="{full: form.rating >= 3, half: form.rating == 2.5}">&#x2605;</span> <span tappable (click)="yourRating(4)" class="star-icon" [ngClass]="{full: form.rating >= 4, half: form.rating == 3.5}">&#x2605;</span> <span tappable (click)="yourRating(5)" class="star-icon" [ngClass]="{full: form.rating >= 5, half: form.rating == 4.5}">&#x2605;</span> </span>
+                        </ion-label>
+                        <div class="comment-form">
+                            <form #f="ngForm">
+                                <ion-list>
+                                    <ion-item *ngIf="!values.isLoggedIn">
+                                        <ion-input required type="text" [(ngModel)]="form.author" name="name" placeholder="{{'Name' | translate}}"> </ion-input>
+                                    </ion-item>
+                                    <ion-item *ngIf="!values.isLoggedIn">
+                                        <ion-input required type="email" [(ngModel)]="form.email" name="email" placeholder="{{'Email' | translate}}"> </ion-input>
+                                    </ion-item>
+                                    <ion-item class="comment-area"> <textarea rows="2" style="width: 100%; border: none;" required type="text" [(ngModel)]="form.comment" name="comment" placeholder="{{'Comment' | translate}}">
+                  </textarea> </ion-item>
+                                </ion-list>
+                                <div class="login-button"> <button style="margin: 16px 16px 0 16px;width: calc(100% - 32px);" ion-button block color="button-color" type="submit" text-uppercase [disabled]="buttonSubmitLogin" (click)="submitComment()">{{"Submit" | translate}}
+                </button> </div>
+                            </form>
+                        </div>
+                    </div>
+                </ion-card-content>
+            </ion-card>
+            <ion-card *ngIf="reviews.length">
+                <ion-card-header style="background-color: #f5f5f5;margin-top: 10px;"> {{"Feedbacks" | translate}} </ion-card-header>
+                <ion-card-content>
+                    <div *ngFor="let item of reviews" class="reviews">
+                        <ion-item no-lines>
+                            <ion-avatar item-start style="margin:8px"> <img src="https://www.gravatar.com/avatar/{{item.avatar}}"> </ion-avatar>
+                            <h3 style="margin-bottom:6px;font-size:15px">{{item.name}} <span class="rating review-star">
+                <span class="star-icon" [ngClass]="{full: item.rating >= 1, half: item.rating == 0.5}">&#x2605;</span> <span class="star-icon" [ngClass]="{full: item.rating >= 2, half: item.rating == 1.5}">&#x2605;</span> <span class="star-icon" [ngClass]="{full: item.rating >= 3, half: item.rating == 2.5}">&#x2605;</span> <span class="star-icon" [ngClass]="{full: item.rating >= 4, half: item.rating == 3.5}">&#x2605;</span> <span class="star-icon" [ngClass]="{full: item.rating >= 5, half: item.rating == 4.5}">&#x2605;</span> </span>
+                            </h3>
+                            <h3 style="color:#9e9898;margin-bottom:4px;font-size: 13px">{{item.date_created | date:'MMM d, y hh:mm a'}} </h3>
+                        </ion-item>
+                        <p text-wrap>{{item.review}}</p>
+                    </div>
+                </ion-card-content>
+            </ion-card>
+        </div>
+    </div> <br> </ion-content>

@@ -1,0 +1,44 @@
+<ion-header no-border class="wishlist-header">
+    <ion-navbar color="header"> <button ion-button menuToggle>
+      <ion-icon name="menu">
+      </ion-icon>
+    </button>
+        <ion-title text-center>{{"Wishlist"| translate}} </ion-title>
+        <ion-buttons end> <button ion-button icon-only light class="has-icon icon-only has-badge" (click)="getCart()">
+        <ion-icon class="ion-ios-cart item-icon">
+        </ion-icon>
+        <ion-badge class="badge badge-light" *ngIf="values.count">{{values.count}}
+        </ion-badge>
+      </button> </ion-buttons>
+    </ion-navbar>
+</ion-header>
+<ion-content class="wishlistPage">
+    <ion-spinner *ngIf="!wishlist" name="crescent"> </ion-spinner>
+    <div *ngIf="wishlist">
+        <div class="empty-wishlist" *ngIf="!wishlist.length"> <img src="assets/image/wishlist.png">
+            <h4 text-center no-lines>{{"Your Wishlist Is Empty" | translate}}</h4> <button ion-button class="butt" item-center medium color="button-color" text-uppercase (click)="gohome()">{{"Go Explore" | translate}}</button> </div>
+        <div *ngIf="wishlist.length">
+            <div *ngFor="let item of wishlist | keys" class="wish-list">
+                <ion-item no-lines>
+                    <ion-thumbnail item-left (click)="getProduct(item.value.id)"> <img src="{{item.value.image_thumb}}">
+                        <div class="stock"> <button ion-button *ngIf="item.value.stock_status == 'outofstock'">{{"No Stock" | translate}}</button> </div>
+                    </ion-thumbnail>
+                    <h2 wrap-text class="item-name">{{item.value.name}} </h2>
+                    <div [innerHTML]="item.value.short_description" class="short-description" *ngIf="item.value.short_description"> </div>
+                    <div [innerHTML]="item.value.description" class="short-description" *ngIf="!item.value.short_description"> </div>
+                    <h4 wrap-text><span>{{"Price" | translate}}</span> : {{item.value.price | currency:values.currency:symbol:'1.2-2'}}</h4>
+                    <div> <button ion-button icon-only small class="rating-button-grid1" style="height:19px">
+                <ion-icon name="md-star"><span class="rating-count">{{item.value.average_rating | number:'1.1-1'}}</span></ion-icon> 
+              </button> <span style="color: #777;font-size:15px;">{{item.value.review_count}} {{"ratings" | translate}}</span> </div>
+                </ion-item>
+                <ion-row class="edit-buttons">
+                    <ion-col> <button ion-button full [disabled]="item.value.stock_status == 'outofstock' || disableAddtoCartFromWishlist" no-padding no-margin clear text-uppercase (click)="addToCartFromWishlist(item.value.id, item.value.type)"> <ion-icon name="md-cart"></ion-icon> {{"Add To Cart" | translate}}
+              </button> </ion-col>
+                    <ion-col> <button ion-button full [disabled]="disableDeleteWishlist" no-padding no-margin clear text-uppercase (click)="removeFromWishlist(item.value.id)">
+                <ion-icon name="ios-trash"></ion-icon> {{"Delete" | translate}}
+              </button> </ion-col>
+                </ion-row>
+            </div>
+        </div>
+    </div>
+</ion-content>

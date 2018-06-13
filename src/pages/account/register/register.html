@@ -1,0 +1,58 @@
+<ion-header no-border class="login-header">
+    <ion-navbar> <button ion-button menuToggle style="color: white;">
+      <ion-icon name="menu">
+      </ion-icon>
+    </button> </ion-navbar>
+</ion-header>
+<ion-content class="account-register">
+    <div class="shop-info">
+        <h1 text-uppercase>{{"Shop name" | translate}}</h1>
+        <h2>{{"You're just one step away from signing up" | translate}}.</h2>
+    </div>
+    <div>
+        <form #f="ngForm" class="login">
+            <ion-list>
+                <ion-item>
+                    <ion-label fixed>{{"Full Name" | translate}}</ion-label>
+                    <ion-input required type="text" [(ngModel)]="registerData.first_name" name="firstname"> </ion-input>
+                </ion-item>
+                <ion-item class="no-transform">
+                    <ion-label fixed>{{"Email" | translate}}</ion-label>
+                    <ion-input required type="email" [(ngModel)]="registerData.email" name="Email"> </ion-input>
+                </ion-item>
+                <ion-item *ngIf="!showPasswordEnable" class="no-transform">
+                    <ion-label fixed>{{"Password" | translate}}</ion-label>
+                    <ion-input required type="password" [(ngModel)]="registerData.password" name="password"> </ion-input>
+                    <ion-icon item-right *ngIf="registerData.password" name="ios-eye" (click)="showPassword()" style="font-size: 2.5rem;z-index:10"></ion-icon>
+                </ion-item>
+                <ion-item *ngIf="showPasswordEnable" class="no-transform">
+                    <ion-label fixed>{{"Password" | translate}}</ion-label>
+                    <ion-input required type="text" [(ngModel)]="registerData.password" name="password"> </ion-input>
+                    <ion-icon item-right name="ios-eye-off" (click)="hidePassword()" style="font-size: 2.5rem;z-index:10"></ion-icon>
+                </ion-item>
+                <ion-item>
+                    <ion-label fixed>{{"Phone" | translate}}</ion-label>
+                    <ion-input required type="number" [(ngModel)]="registerData.billing.phone" name="billing_phone"> </ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label fixed>{{"Address" | translate}}</ion-label>
+                    <ion-input required type="text" [(ngModel)]="registerData.billing.address_1" name="billing_1"> </ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label fixed>{{"City" | translate}}</ion-label>
+                    <ion-input required type="text" [(ngModel)]="registerData.billing.city" name="billing_city"> </ion-input>
+                </ion-item>
+            </ion-list>
+            <div *ngIf="errors" class="margin-error-message">
+                <h3>{{errors.message}} </h3>
+            </div> <br> <button ion-button block type="submit" outline text-uppercase [disabled]="disableSubmit" (click)="registerCustomer()">{{Register | translate}}
+        </button> </form>
+    </div>
+    <!--div>
+        <ion-row class="login-div">
+            <ion-col class="col1"> <button ion-button outline type="submit" outline full text-uppercase [disabled]="disableSubmit" (click)="facebookLogin()">{{"Facebook" | translate}}</button> </ion-col>
+            <ion-col class="col2"> <button ion-button outline type="submit" outline full text-uppercase [disabled]="disableSubmit" (click)="gmailLogin()"> {{"Google" | translate}}</button> </ion-col>
+        </ion-row>
+    </div-->
+    <h4>{{"By signing in you agree to our" | translate}} <a (click)="terms(this.values.data.pages.terms)">{{"Terms & Conditions" | translate}}</a></h4>
+</ion-content>

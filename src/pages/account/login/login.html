@@ -1,0 +1,44 @@
+<ion-header no-border class="login-header">
+    <ion-navbar> <button ion-button menuToggle style="color: #ffffff;">
+      <ion-icon name="menu">
+      </ion-icon>
+    </button> </ion-navbar>
+</ion-header>
+<ion-content class="account-login">
+    <div class="shop-info">
+        <h1 text-uppercase>{{"Shop name" | translate}}</h1>
+        <h2>{{"The most fulfilling shopping experience" | translate}}.</h2>
+    </div>
+    <!--div>
+        <ion-row class="login-div">
+            <ion-col class="col1"> <button ion-button outline full type="submit" text-uppercase [disabled]="disableSubmit" (click)="facebookLogin()">{{"Facebook" | translate}}</button> </ion-col>
+            <ion-col class="col2"> <button ion-button outline full type="submit" text-uppercase [disabled]="disableSubmit" (click)="gmailLogin()">{{"Google" | translate}}</button> </ion-col>
+        </ion-row>
+    </div-->
+    <div class="or-button"> <br> <br> <button ion-button block clear type="submit" class="button button-block button-default">{{"Or login via e-mail" | translate}}
+    </button> </div>
+    <div>
+        <form #f="ngForm" class="login">
+            <ion-list>
+                <ion-item>
+                    <ion-label fixed>{{"Username" | translate}}</ion-label>
+                    <ion-input required type="email" [(ngModel)]="loginData.username" name="firstname"> </ion-input>
+                </ion-item>
+                <ion-item *ngIf="!showPasswordEnable">
+                    <ion-label fixed>{{"Password" | translate}}</ion-label>
+                    <ion-input required type="password" [(ngModel)]="loginData.password" name="password"> </ion-input>
+                    <ion-icon *ngIf="loginData.password" item-right name="ios-eye" (click)="showPassword()" style="font-size: 2.5rem;z-index:10"></ion-icon>
+                </ion-item>
+                <ion-item *ngIf="showPasswordEnable">
+                    <ion-label fixed>{{"Password" | translate}}</ion-label>
+                    <ion-input required type="text" [(ngModel)]="loginData.password" name="password"> </ion-input>
+                    <ion-icon item-right name="ios-eye-off" (click)="hidePassword()" style="font-size: 2.5rem;z-index:10"></ion-icon>
+                </ion-item>
+                <h2 tappable (click)="forgotten()">{{"Forgot Password" | translate}}?</h2>
+            </ion-list> <button ion-button outline full type="submit" text-uppercase [disabled]="disableSubmit" (click)="login()">{{LogIn | translate}}
+      </button> <br> </form>
+        <div class="signup">
+            <h2>{{"Don't have an account" | translate}}? <a (click)="signup()"> {{"SIGN UP" | translate}}</a></h2>
+        </div>
+    </div>
+</ion-content>

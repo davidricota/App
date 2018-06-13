@@ -1,0 +1,37 @@
+<ion-header no-border>
+    <ion-navbar color="header"> <button ion-button menuToggle>
+      <ion-icon name="menu">
+      </ion-icon>
+    </button>
+        <ion-title text-center style="margin-right:30px">{{"My" | translate}} {{"Profile" | translate}} </ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content class="my-information">
+    <ion-spinner *ngIf="!myInformation" name="crescent"> </ion-spinner>
+    <div *ngIf="myInformation">
+        <div><span *ngIf="values.avatar"><img src="{{values.avatar}}"></span></div>
+        <ion-list class="my-info">
+            <ion-label>{{"Full Name" | translate}} </ion-label>
+            <ion-input required type="text" [(ngModel)]="myInformation.first_name" name="first_name"> </ion-input>
+            <ion-label>{{"Email" | translate}} </ion-label>
+            <ion-input required type="email" [(ngModel)]="myInformation.email" name="email"> </ion-input>
+            <ion-label>{{"Phone" | translate}} </ion-label>
+            <ion-input required type="number" [(ngModel)]="myInformation.billing.phone" name="phone"> </ion-input>
+            <div class="disabled">
+                <ion-label>{{"Username" | translate}} </ion-label>
+                <ion-input [(ngModel)]="myInformation.username" disabled="true"> </ion-input>
+                <ion-label>{{"Total" | translate}} {{"Orders" | translate}} </ion-label>
+                <ion-input [(ngModel)]="myInformation.orders_count" disabled="true"> </ion-input>
+                <div *ngIf="myInformation.total_spent != 0">
+                    <ion-label>{{"Total" | translate}} {{"Spent" | translate}} </ion-label>
+                    <ion-input [(ngModel)]="myInformation.total_spent" disabled="true"> </ion-input>
+                </div>
+            </div>
+        </ion-list>
+    </div>
+    <div *ngIf="errors" class="error-message">
+        <h3>{{errors.message}} </h3>
+    </div>
+    <div class="error-message" *ngIf="myInformation"> <button ion-button block color="button-color" type="submit" [disabled]="disableSubmit" class="button button-block button-default" text-uppercase (click)="saveMyinfo()">{{Save | translate}}
+    </button> <br> </div>
+</ion-content>

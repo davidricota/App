@@ -1,0 +1,127 @@
+<ion-header no-border class="home-header">
+    <ion-navbar color="header"> <button ion-button menuToggle>
+      <ion-icon name="menu">
+      </ion-icon>
+    </button>
+        <ion-title text-center>{{"Home" | translate}} </ion-title>
+        <ion-buttons end> <button ion-button icon-only light color="shadowlite" (click)="getSearch()">
+        <ion-icon ios="ios-search" md="md-search">
+        </ion-icon>
+      </button> <button ion-button icon-only light class="has-icon icon-only has-badge" (click)="getCart()">
+        <ion-icon class="ion-md-cart item-icon">
+        </ion-icon>
+        <ion-badge class="badge badge-light" *ngIf="values.count != 0">{{values.count}}
+        </ion-badge>
+      </button> </ion-buttons>
+    </ion-navbar>
+</ion-header>
+<ion-content class="home">
+    <div *ngIf="service?.banners" class="home-banners">
+        <ion-slides pager="true" loop="true" autoplay="5800">
+            <ion-slide *ngFor='let value of service.banners'> <img src="{{value}}"> </ion-slide>
+        </ion-slides>
+    </div>
+    <div class="segment" *ngIf="service.categories">
+        <ion-segment [(ngModel)]="segment" (ionChange)="updateSchedule($event)">
+            <ion-segment-button tappable value="categories">
+                <ion-label text-uppercase>{{"Categories" | translate}}</ion-label>
+            </ion-segment-button>
+            <ion-segment-button tappable value="coupons">
+                <ion-label text-uppercase>{{"Featured" | translate}} </ion-label>
+            </ion-segment-button>
+            <ion-segment-button tappable value="deals">
+                <ion-label text-uppercase>{{"Best Offers" | translate}}</ion-label>
+            </ion-segment-button>
+        </ion-segment>
+    </div>
+    <div *ngIf="showCategories" class="category-class">
+        <ion-spinner *ngIf="!service?.categories" name="crescent"> </ion-spinner>
+
+        <!--div class="shop-name">
+            <ion-item no-lines> 
+                <b color="side-heading-color" text-uppercase>{{"Shop By Category"| translate}}
+                </b> 
+            </ion-item>
+        </div-->
+        <div *ngIf="service.mainCategories" class="main-categories">
+            <ion-row class="row unlimited-items">
+                <ion-col class="col" *ngFor="let item of service.mainCategories">
+                    <a (click)="getCategory(item.id, item.slug, item.name)">
+                        <ion-card>
+                            <ion-card-content> 
+                                <img *ngIf="item.image?.src" src="{{item.image.src}}" /> 
+                            </ion-card-content>
+                            <div text-center>
+                                <ion-label text-uppercase [innerHTML]="item.name"> </ion-label>
+                            </div>
+                        </ion-card>
+                    </a>
+                </ion-col>
+            </ion-row>
+        </div>
+
+        
+        <!--div *ngIf="service?.categories">
+            <ion-item no-lines class="item-name">
+                <ion-label>{{"All categories" | translate}}</ion-label> <button ion-button small item-right (click)="getAllCategories()">See All</button> </ion-item>
+            <div *ngIf="service.mainCategories" class="category-class">
+                <div tappable *ngFor="let item of service.mainCategories" class="container"> <img *ngIf="item.image?.src" src="{{item.image.src}}" (click)="getCategory(item.id, item.name)" /> <img *ngIf="!item.image?.src" src="assets/image/category-background.jpg" (click)="getCategory(item.id, item.name)" />
+                    <h5 class="centered" (click)="getCategory(item.id, item.name)" [innerHTML]="item.name"></h5>
+                </div>
+            </div>
+        </div-->
+    </div>
+    <div *ngIf="showCoupons">
+        <ion-spinner *ngIf="!service.featuredProduct" name="crescent"> </ion-spinner>
+        <div *ngIf="service.featuredProduct" class="products-listing">
+            <ion-item no-lines class="item-name">
+                <ion-label>{{"Featured products" | translate}} </ion-label> <button ion-button small item-right (click)="viewAllFeatured()">{{"See All" | translate}}</button> </ion-item>
+            <div class="grid">
+                <ion-row class="row unlimited-items">
+                    <ion-col class="col" *ngFor="let item of service.featuredProduct">
+                        <ion-card [ngClass]="{'no-stock-active': !item.in_stock}">
+                            <ion-card-content class="stock"> <img tappable src="{{item.images[0].src}}" (click)="getProduct(item.id)">
+                                <div class="no-stock">
+                                    <!--button ion-button color="danger" *ngIf="!item.in_stock">{{"No Stock" | translate}}
+                           </button-->
+                                </div>
+                                <div *ngIf="item.sale_price && ((item.regular_price - item.sale_price) / item.regular_price*100) >= '1'" class="offer-tag" class="offer-tag"> <button ion-button small text-wrap>
+                            <span text-wrap>{{(item.regular_price - item.sale_price) / item.regular_price*100 | number : '1.0-0'}}% {{"OFF" | translate}}</span></button> </div>
+                                <ion-icon name="md-heart" class="wishlist-button-grid1" *ngIf="values.wishlistId[item.id]" (click)="removeFromWishlist(item.id)"></ion-icon>
+                                <ion-icon name="md-heart-outline" class="wishlist-button-grid2" *ngIf="!values.wishlistId[item.id]" (click)="addToWishlist(item.id)"></ion-icon>
+                            </ion-card-content>
+                            <div tappable (click)="getProduct(item.id)" class="card-name">
+                                <ion-label *ngIf="item.title">{{item.title}} </ion-label>
+                                <ion-label *ngIf="item.name">{{item.name}} </ion-label>
+                            </div>
+                            <ion-label> <span class="price-regular" *ngIf="!item.sale_price">{{1*item.price | currency:values.currency:true:'1.2-2'}}</span> <span class="price-regular" *ngIf="item.sale_price">{{1*item.sale_price | currency:values.currency:true:'1.2-2'}}</span> <span class="price-delete" *ngIf="item.sale_price"><del>{{1*item.regular_price | currency:values.currency:true:'1.2-2'}} </del> </span> </ion-label>
+                        </ion-card>
+                    </ion-col>
+                </ion-row>
+            </div> <br>
+            <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="service.has_more_items">
+                <ion-infinite-scroll-content loadingSpinner="crescent" loadingText="{{'Loading more items..' | translate}}"> </ion-infinite-scroll-content>
+            </ion-infinite-scroll>
+        </div>
+    </div>
+    <div *ngIf="showDeals" class="deals">
+        <ion-spinner *ngIf="values.loadDeals" name="crescent"> </ion-spinner>
+        <div *ngIf="!values.loadDeals">
+            <div *ngFor="let cat of service.mainCategories">
+                <h2 *ngIf="service.deals[cat.name]?.length">{{"Offers on" | translate}} <span [innerHTML]="cat.name"></span></h2>
+                <div class="scroll-products" *ngIf="service.deals[cat.name]?.length"> <a *ngFor="let item of service.deals[cat.name]">
+                <img src="{{item.images[0].src}}" (click)="getProduct(item.id)"/>
+                  <h5 *ngIf="item.title">{{item.title}} </h5>
+                  <h5 *ngIf="item.name">{{item.name}} </h5>
+                  <ion-label> 
+                    <span class="price-regular" *ngIf="!item.sale_price">{{1*item.price | currency:values.currency:symbol:'1.2-2'}} </span>
+                    <span class="price-regular" *ngIf="item.sale_price">{{1*item.sale_price | currency:values.currency:symbol:'1.2-2'}}</span> 
+                    <span *ngIf="item.sale_price"><del>{{1*item.regular_price | currency:values.currency:symbol:'1.2-2'}}</del>  </span> 
+                    <!--h3 style="font-size: 14px;color: #62d200;padding: 0;margin: 5px 0 0 0;" *ngIf="((item.regular_price - item.price) /item.regular_price*100) >= '1'">{{(item.regular_price - item.price) /item.regular_price*100 | number : '1.0-0'}}% Off</h3-->
+                    <h3 style="font-size: 13px;color: #d33;padding: 0;margin: 5px 0 0 0;"> Save {{(item.regular_price - item.price) | currency:values.currency:symbol:'1.2-2'}}</h3> 
+                  </ion-label>
+              </a> </div>
+            </div>
+        </div>
+    </div>
+</ion-content>
