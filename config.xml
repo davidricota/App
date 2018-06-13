@@ -90,5 +90,5 @@
     <plugin name="mx.ferreyra.callnumber" spec="~0.0.2" />
     <plugin name="com-sarriaroman-photoviewer" spec="^1.1.16" />
     <plugin name="cordova-plugin-advanced-http" spec="^1.11.1" />
-    <engine name="android" spec="~7.0.0" />
+    <engine name="android" spec="^7.1.0" />
 </widget>
